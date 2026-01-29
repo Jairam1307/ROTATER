@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ROTATER | Satellite-Based Climate Intelligence & Early Warning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&family=Inter:wght@300;400;500&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --primary: #00f0ff;
+        --primary-glow: rgba(0, 240, 255, 0.4);
+        --secondary: #0066ff;
+        --alert: #ff3366;
+        --warning: #ff9900;
+        --bg-dark: #02040a;
+        --panel-bg: rgba(10, 20, 40, 0.7);
+        --transition-standard: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-snappy: all 0.15s ease-out;
+      }
+
+      body {
+        margin: 0;
+        background-color: var(--bg-dark);
+        color: white;
+        font-family: 'Inter', sans-serif;
+        overflow-x: hidden;
+      }
+
+      .font-orbitron { font-family: 'Orbitron', sans-serif; }
+      .font-exo { font-family: 'Exo', sans-serif; }
+      
+      /* --- Interaction Layer --- */
+
+      /* 1. Global Interactive Elements */
+      button, a, input {
+        transition: var(--transition-standard);
+        outline: none;
+      }
+
+      /* 2. Glass Panel Hover & Elevation */
+      .glass-panel {
+        background: var(--panel-bg);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(0, 240, 255, 0.1);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        transition: var(--transition-standard);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .glass-panel::before {
+        content: '';
+        position: absolute;
+        top: 0; left: -100%;
+        width: 100%; height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(0, 240, 255, 0.05),
+          transparent
+        );
+        transition: 0.5s;
+      }
+
+      .glass-panel:hover {
+        border-color: rgba(0, 240, 255, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+      }
+
+      .glass-panel:hover::before {
+        left: 100%;
+      }
+
+      /* 3. Button Archetypes */
+      
+      /* Primary Cyber Button */
+      button.bg-cyan-600, .btn-primary {
+        position: relative;
+        overflow: hidden;
+        transition: var(--transition-snappy);
+        box-shadow: 0 0 0 rgba(0, 240, 255, 0);
+      }
+
+      button.bg-cyan-600:hover, .btn-primary:hover {
+        transform: scale(1.03) translateY(-1px);
+        box-shadow: 0 0 20px var(--primary-glow);
+        filter: brightness(1.1);
+      }
+
+      button.bg-cyan-600:active, .btn-primary:active {
+        transform: scale(0.97);
+      }
+
+      /* Icon Buttons (Circular) - Refined to target buttons only, excluding containers like search bars */
+      button.rounded-full.glass-panel {
+        cursor: pointer;
+      }
+
+      button.rounded-full.glass-panel:hover {
+        background: rgba(0, 240, 255, 0.15);
+        color: var(--primary);
+        border-color: var(--primary);
+        transform: rotate(90deg) scale(1.1);
+      }
+
+      /* Non-button rounded panels (like Search Bar) stay stable */
+      div.rounded-full.glass-panel {
+        cursor: default;
+      }
+      
+      div.rounded-full.glass-panel:hover {
+        transform: translateY(-2px); /* Only slight lift, no rotation */
+      }
+
+      /* 4. Tab Navigation Interaction */
+      button.border-b-2 {
+        position: relative;
+      }
+
+      button.border-b-2::after {
+        content: '';
+        position: absolute;
+        bottom: -2px; left: 50%;
+        width: 0; height: 2px;
+        background: var(--primary);
+        transition: var(--transition-standard);
+        transform: translateX(-50%);
+      }
+
+      button.border-b-2:hover::after {
+        width: 80%;
+      }
+
+      /* 5. Inputs & Forms */
+      input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+        background: rgba(0, 0, 0, 0.8) !important;
+      }
+
+      /* 6. Animations */
+      @keyframes scanline {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(100%); }
+      }
+
+      .scanline-effect::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          rgba(0, 240, 255, 0.05) 50%,
+          transparent
+        );
+        height: 10%;
+        width: 100%;
+        pointer-events: none;
+        animation: scanline 4s linear infinite;
+        opacity: 0.5;
+      }
+
+      /* Focus Indicators (Accessibility) */
+      :focus-visible {
+        outline: 2px solid var(--primary);
+        outline-offset: 4px;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #02040a;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #1e293b;
+        border-radius: 10px;
+        border: 2px solid #02040a;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--primary);
+      }
+
+      /* Reduced Motion Support */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/client": "https://esm.sh/react-dom@^19.2.3/client",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+    "recharts": "https://esm.sh/recharts@^3.6.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "framer-motion": "https://esm.sh/framer-motion@^12.23.26",
+    "topojson-client": "https://esm.sh/topojson-client@^3.1.0",
+    "d3": "https://esm.sh/d3@^7.8.5",
+    "three": "https://esm.sh/three@0.174.0",
+    "world-atlas/": "https://esm.sh/world-atlas@^2.0.2/"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

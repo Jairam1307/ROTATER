@@ -1,0 +1,7 @@
+{
+  "name": "ROTATER",
+  "description": "Satellite-Based Climate Intelligence, Historical Analysis & Early Warning System",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
